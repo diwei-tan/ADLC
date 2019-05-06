@@ -1,0 +1,43 @@
+﻿@model WebApplication1.Models.TourLeader
+@using WebApplication1.Models;
+
+@{
+    List<TourLeader> leaders = (List<TourLeader>)ViewData["Leaders"];
+    string TourId = (string)ViewData["TourId"];
+}
+<br />
+<div>
+    <a href="../Enquire/GetLeaderCost">Calculate Leader Cost</a> | <a href="./ViewTour">View Tours</a>
+</div>
+<br />
+<h2>Assign Available Leader</h2>
+<br />
+@using (Html.BeginForm("ViewTourLeader", "Assignment", FormMethod.Post))
+{
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Role</th>
+            <th>Select</th>
+        </tr>
+        @foreach (var leader in leaders)
+        {
+            <tr>
+                <td>@leader.Name</td>
+                <td>@leader.Email</td>
+                <td>@leader.Phone</td>
+                @if (leader.Role == "FT")
+                {
+                    <td>Full-Time</td>
+                }
+                else
+                {
+                    <td>Part-Time</td>
+                }
+                <td><input type="submit" formaction="AssignTourLeader?TourId=@TourId&TourLeaderId=@leader.Id" value="Select" /></td>
+            </tr>
+        }
+    </table>
+}

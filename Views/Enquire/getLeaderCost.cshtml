@@ -1,0 +1,86 @@
+﻿@model WebApplication1.Models.TourLeader
+@using WebApplication1.Models;
+
+@{
+    string name = (string)ViewData["Name"];
+    string days = (string)ViewData["Days"];
+    int numDays;
+    if (days == null)
+    {
+        numDays = 1;
+    }
+    else
+    {
+        numDays = int.Parse(days);
+    }
+}
+<br />
+<a href="../Assignment/ViewTour">View Tours</a>
+<br />
+<h2>Enquire Tour Leader Cost</h2>
+<br />
+@using (Html.BeginForm("getLeaderCost", "Enquire", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <th>Username: </th>
+            <td class="textbox">@Html.TextBoxFor(x => x.Name)</td>
+            <td>@Html.ValidationMessageFor(x => x.Name)</td>
+        </tr>
+        <tr>
+            <th>Days: </th>
+            <td>
+                <input id="rangeValue" name="NumDays" type="text" oninput="this.form.valR.value=this.value" min="1" max="30" value=@numDays>
+            </td>
+            <td>
+                <input id="valR" name="NumDays" max="30" oninput="this.form.rangeValue.value=this.value" min="1" step="1" type="range" value=@numDays />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><Input type="submit" value="Calculate" /></td>
+        </tr>
+    </table>
+}
+<br />
+@{
+    if (name != null)
+    {
+        TourLeader leader = (TourLeader)ViewData["Leader"];
+        double cost = (double)ViewData["Cost"];
+        <table>
+            <tr>
+                <th>Name: </th>
+                <td>@leader.Name</td>
+            </tr>
+            <tr>
+                <th>Number of Days: </th>
+                <td align="center">@days</td>
+            </tr>
+            @if (leader.Role == "PT")
+            {
+                <tr>
+                    <td colspan="2" align="center"><b>Part-Time Staff</b></td>
+                </tr>
+                <tr>
+                    <th>Leader Cost: </th>
+                    <td>@cost</td>
+                </tr>
+            }
+            @if (leader.Role == "FT")
+            {
+                <tr>
+                    <td colspan="2" align="center"><b>Full-Time Staff</b></td>
+                </tr>
+                <tr>
+                    <th>Leader Cost:</th>
+                    <td align="center">@cost</td>
+                </tr>
+            }
+        </table>
+    }
+}
+<style>
+    .field-validation-error {
+        color: red;
+    }
+</style>

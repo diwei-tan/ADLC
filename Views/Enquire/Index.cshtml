@@ -1,0 +1,24 @@
+﻿@model WebApplication1.Models.TourLeader
+
+@using WebApplication1.Models;
+
+<h2>Enquire Tour Leader Cost</h2>
+@using (Html.BeginForm("getLeaderCost", "test", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <th>Username: </th>
+            <td class="textbox">@Html.TextBoxFor(x => x.Name)</td>
+        </tr>
+        <tr>
+            <th>Days: </th>
+            <td class="textbox"> <input type="text" name="NumDays" value="Enter number of days" /></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><Input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+}
+
+
+
