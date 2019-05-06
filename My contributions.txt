@@ -1,0 +1,4 @@
+Completed all views and Assignment controller 
+Coded all models with polymorphism
+Coded the DAOs
+Compiled all the rest of the code (including enquire controller)
